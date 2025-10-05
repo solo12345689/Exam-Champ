@@ -61,31 +61,46 @@ export default function SubCategoriesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Button 
-        variant="ghost" 
-        className="mb-4 flex items-center gap-1"
-        onClick={goBack}
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Subjects
-      </Button>
+    <div className="min-h-screen bg-gray-900">
+      {/* Header */}
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 py-8">
+        <div className="container mx-auto px-4">
+          <Button 
+            variant="ghost" 
+            className="mb-4 flex items-center gap-2 text-white hover:text-yellow-400"
+            onClick={goBack}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Subjects
+          </Button>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="text-2xl">{subject?.name} Categories</CardTitle>
-        </CardHeader>
-      </Card>
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-white mb-2">
+              {subject?.name} <span className="text-yellow-400">Categories</span>
+            </h1>
+            <p className="text-gray-300">Select a category to view exam papers</p>
+          </div>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-        {subCategories.map((subCategory) => (
-          <SubCategoryButton
-            key={subCategory.id}
-            id={subCategory.id}
-            name={subCategory.name}
-            subjectId={subCategory.subjectId}
-          />
-        ))}
+      {/* Categories Grid */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {subCategories.map((subCategory) => (
+            <SubCategoryButton
+              key={subCategory.id}
+              id={subCategory.id}
+              name={subCategory.name}
+              subjectId={subCategory.subjectId}
+            />
+          ))}
+        </div>
+
+        {subCategories.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-400 text-lg">No categories available for this subject yet.</p>
+          </div>
+        )}
       </div>
     </div>
   );

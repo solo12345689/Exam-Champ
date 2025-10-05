@@ -10,6 +10,7 @@ interface Paper {
   id: string;
   year: number;
   fileUrl: string;
+  topic?: string;
 }
 
 interface Subject {
@@ -52,7 +53,9 @@ export default function SubCategoryPapersPage() {
         // Fetch papers
         const papersResponse = await fetch(`/api/papers?subjectId=${subjectId}&subCategoryId=${subCategoryId}`);
         const data = await papersResponse.json();
-        setPapers(data);
+        // Sort papers by year in descending order (newest first)
+        const sortedPapers = data.sort((a: Paper, b: Paper) => b.year - a.year);
+        setPapers(sortedPapers);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -77,48 +80,55 @@ export default function SubCategoryPapersPage() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8 flex justify-center items-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div className="min-h-screen bg-gray-900 flex justify-center items-center">
+        <Loader2 className="h-8 w-8 animate-spin text-yellow-400" />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Button 
-        variant="ghost" 
-        className="mb-4 flex items-center gap-1"
-        onClick={goBack}
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to {subject?.name} Categories
-      </Button>
+    <div className="min-h-screen bg-gray-900">
+      {/* Header */}
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 py-8">
+        <div className="container mx-auto px-4">
+          <Button 
+            variant="ghost" 
+            className="mb-4 flex items-center gap-2 text-white hover:text-yellow-400"
+            onClick={goBack}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to {subject?.name} Categories
+          </Button>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="text-2xl">
-            {subject?.name}: {subCategory?.name} Papers
-          </CardTitle>
-        </CardHeader>
-      </Card>
-
-      {papers.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-lg">No papers available for this category yet.</p>
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-white mb-2">
+              {subject?.name}: <span className="text-yellow-400">{subCategory?.name}</span>
+            </h1>
+            <p className="text-gray-300">Papers sorted by year - Select to view with zoom</p>
+          </div>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {papers.map((paper) => (
-            <div key={paper.id}>
+      </div>
+
+      {/* Papers Grid */}
+      <div className="container mx-auto px-4 py-12">
+        {papers.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-400 text-lg">No papers available for this category yet.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {papers.map((paper) => (
               <PaperCard 
+                key={paper.id}
                 year={paper.year} 
-                fileUrl={paper.fileUrl} 
+                fileUrl={paper.fileUrl}
+                topic={paper.topic}
                 onViewPaper={openPdf}
               />
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
 
       {selectedPaper && (
         <DynamicPdfViewer fileUrl={selectedPaper} onClose={closePdf} />
