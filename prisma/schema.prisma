@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         String   @id @db.Uuid
+  email      String   @unique
+  createdAt  DateTime @default(now())
+  isAdmin    Boolean  @default(false)
+  papers     Paper[]
+}
+
+model Subject {
+  id            String         @id @default(uuid())
+  name          String
+  hasSubcategories Boolean     @default(false)
+  subcategories SubCategory[]
+  papers        Paper[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model SubCategory {
+  id         String   @id @default(uuid())
+  name       String
+  subject    Subject  @relation(fields: [subjectId], references: [id])
+  subjectId  String
+  papers     Paper[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Paper {
+  id            String       @id @default(uuid())
+  year          Int
+  topic         String?      // Optional topic/name field for the paper
+  fileUrl       String
+  subject       Subject      @relation(fields: [subjectId], references: [id])
+  subjectId     String
+  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String?
+  uploadedBy    User         @relation(fields: [userId], references: [id])
+  userId        String       @db.Uuid
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
