@@ -1,0 +1,6 @@
+        // Fetch papers
+        const papersResponse = await fetch(`/api/papers?subjectId=${subjectId}`);
+        const data = await papersResponse.json();
+        setPapers(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);

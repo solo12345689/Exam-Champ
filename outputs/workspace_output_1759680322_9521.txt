@@ -1,0 +1,62 @@
+.
+├── README.md
+├── SUPABASE_GOOGLE_AUTH_SETUP.md
+├── components.json
+├── next.config.mjs
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── prisma
+│   └── schema.prisma
+├── public
+│   ├── favicon.ico
+│   └── images
+│       └── rect.png
+├── src
+│   ├── components
+│   │   ├── AdminUploadForm.tsx
+│   │   ├── DynamicPdfViewer.tsx
+│   │   ├── GoogleButton.tsx
+│   │   ├── Header.tsx
+│   │   ├── Logo.tsx
+│   │   ├── PaperCard.tsx
+│   │   ├── PdfViewer.tsx
+│   │   ├── PdfViewerAdvanced.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── SubCategoryButton.tsx
+│   │   ├── SubjectButton.tsx
+│   │   └── ui
+│   ├── contexts
+│   │   └── AuthContext.tsx
+│   ├── hooks
+│   │   └── useIsIFrame.tsx
+│   ├── lib
+│   │   ├── prisma.ts
+│   │   └── utils.ts
+│   ├── pages
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   ├── api
+│   │   ├── auth
+│   │   ├── dashboard.tsx
+│   │   ├── error.tsx
+│   │   ├── forgot-password.tsx
+│   │   ├── index.tsx
+│   │   ├── login.tsx
+│   │   ├── magic-link-login.tsx
+│   │   ├── papers
+│   │   ├── private.tsx
+│   │   ├── public.tsx
+│   │   ├── reset-password.tsx
+│   │   ├── signup.tsx
+│   │   └── subcategories
+│   ├── styles
+│   │   └── globals.css
+│   └── util
+│       ├── string.ts
+│       └── supabase
+├── tailwind.config.js
+├── tsconfig.json
+└── vercel.json
+
+18 directories, 42 files

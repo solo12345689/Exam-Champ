@@ -1,0 +1,5 @@
+total 8
+drwxr-xr-x 2 root root   50 Oct  5 16:05 .
+drwxr-xr-x 3 root root   25 Oct  5 16:05 ..
+-rw-r--r-- 1 root root 3751 Oct  5 16:05 [subCategoryId].tsx
+-rw-r--r-- 1 root root 3064 Oct  5 16:05 index.tsx

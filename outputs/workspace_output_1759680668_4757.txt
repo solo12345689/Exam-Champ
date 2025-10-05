@@ -1,0 +1,12 @@
+On branch feature/subject-buttons-and-paper-browsing
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   src/components/PaperCard.tsx
+	modified:   src/components/SubCategoryButton.tsx
+	modified:   src/components/SubjectButton.tsx
+	modified:   src/pages/dashboard.tsx
+	modified:   src/pages/papers/[subjectId]/[subCategoryId].tsx
+	modified:   src/pages/papers/[subjectId]/index.tsx
+	modified:   src/pages/subcategories/[subjectId].tsx
+	new file:   todo.md
+
